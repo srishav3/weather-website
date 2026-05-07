@@ -10,6 +10,7 @@ searchButton.addEventListener('click', (e) => {
     const humidity = document.querySelector(".humidity");
     const wind = document.querySelector(".wind");
     const weather = document.querySelector(".weather");
+    const errorDiv = document.querySelector(".error");
 
     async function display(searchCity, apiKey) {
         try {
@@ -19,6 +20,7 @@ searchButton.addEventListener('click', (e) => {
             }
             const response = await data.json();
             console.log(response);
+            errorDiv.classList.add("hidden");
             weather.classList.remove("hidden");
             temperature.textContent = `${Math.floor(response.main.temp)}°C`;
             cityName.textContent = `${response.name}`;
@@ -47,9 +49,9 @@ searchButton.addEventListener('click', (e) => {
             weather.classList.remove("hidden");
 
         } catch (error) {
-            weather.textContent = `${error.message}`;
-            weather.classList.remove("hidden");
-            weather.classList.add("design");
+            weather.classList.add("hidden");
+            errorDiv.textContent = error.message;
+            errorDiv.classList.remove("hidden");
         }
 
     }
